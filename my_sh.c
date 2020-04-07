@@ -1,16 +1,10 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
-#include <stdlib.h>
+#include "holberton.h"
 
-int main(int argc, char *argv[], char *envp[])
+
+int main(void)
 {
 	pid_t PID;
-	char *line[1024];
-	char *token;
-	char *text = NULL;
+	char *line[1024], *token, *text = NULL;
 	size_t cont, narg;
 	int status;
 
@@ -29,15 +23,11 @@ int main(int argc, char *argv[], char *envp[])
 		PID = fork();
 		if (PID == 0)
 		{
-			if (execve(line[0], line, envp))
-			{
-				exit(EXIT_FAILURE);
-			}
+			 if (execve(line[0], line, NULL) == -1)
+			 	perror("Error:");
 		}
-		if (PID > 0)
-			wait(&status);
+		wait(&status);
 	}
-	putchar('\n');
 	free(text);
 	exit(status);
 }
