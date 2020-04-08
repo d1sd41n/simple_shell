@@ -1,6 +1,8 @@
 #include "holberton.h"
-
-
+/**
+ * main - main function of shell.
+ * Return: final .status
+ */
 int main(void)
 {
 	pid_t PID;
@@ -23,8 +25,8 @@ int main(void)
 		PID = fork();
 		if (PID == 0)
 		{
-			 if (execve(line[0], line, NULL) == -1)
-			 	perror("Error:");
+			if (execve(line[0], line, NULL) == -1)
+				perror("Error:");
 		}
 		wait(&status);
 	}

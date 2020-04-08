@@ -1,5 +1,9 @@
 #include "holberton.h"
-
+/**
+ * _getenv - Get the enviroment var content.
+ * @varenv: Env var name.
+ * Return: Env var content.
+ */
 
 char *_getenv(char *varenv)
 {
@@ -8,11 +12,11 @@ char *_getenv(char *varenv)
 
 	if (varenv == NULL)
 		return (NULL);
-    while(environ[i] != NULL)
+	while (environ[i] != NULL)
 	{
-        size = 0;
-        while(environ[i][size] != '=')
-            size++;
+		size = 0;
+		while (environ[i][size] != '=')
+			size++;
 		size++;
 		aux = malloc(size);
 		size--;
@@ -20,21 +24,21 @@ char *_getenv(char *varenv)
 		if (_strncmp(varenv, aux, size) == 0)
 		{
 			free(aux);
-            j = 0;
-            while(environ[i][j])
+			j = 0;
+			while (environ[i][j])
 			{
 				if (environ[i][j] == '=')
 				{
 					aux = &environ[i][j + 1];
 					break;
 				}
-                j++;
+				j++;
 			}
 			return (aux);
 		}
 		free(aux);
 		aux = NULL;
-        i++;
+		i++;
 	}
 	return (NULL);
 }
