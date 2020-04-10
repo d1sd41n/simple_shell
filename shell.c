@@ -1,5 +1,13 @@
 #include "holberton.h"
 
+/**
+ * runc - Function for run commands.
+ * @line: entri command line.
+ * @text: char pointer.
+ * @pname: pointer name command.
+ * @head: pointer head.
+ * Return: final .status
+ */
 void runc(char *line[], char *text, char *pname, list_t *head)
 {
 	pid_t PID;
@@ -11,22 +19,22 @@ void runc(char *line[], char *text, char *pname, list_t *head)
 	if (PID == 0)
 	{
 		if (stat(line[0], &st) != 0)
-        {
+		{
 			for (m = 1; head->next != NULL; m++)
 			{
 				p = _strcatgoodizer(head->str, line[0], res);
 				if (stat(p, &st) == 0)
 				{
 					if (execve(p, line, NULL) == -1)
-						{
-							perror(pname);
-							free(text);
-							exit(1);
-						}
+					{
+						perror(pname);
+						free(text);
+						exit(1);
+					}
 				}
 				head = head->next;
 			}
-        }
+		}
 		if (execve(line[0], line, NULL) == -1)
 		{
 			perror(pname);
@@ -35,7 +43,7 @@ void runc(char *line[], char *text, char *pname, list_t *head)
 		}
 	}
 	else if (PID < 0)
-        perror("fork error");
+		perror("fork error");
 	else
 	{
 		if (wait(&status) == -1)
@@ -45,7 +53,9 @@ void runc(char *line[], char *text, char *pname, list_t *head)
 
 /**
  * main - main function of shell.
- * Return: final .status
+ * @ac: counter arguments.
+ * @av: arguments pointer.
+ * Return: final .status.
  */
 int main(int ac __attribute__((unused)), char **av)
 {
@@ -66,13 +76,12 @@ int main(int ac __attribute__((unused)), char **av)
 			token = strtok(NULL, " \t\n\r");
 		}
 		line[cont] = NULL;
-
-		if(!line[0])
+		if (!line[0])
 			continue;
 		runc(line, text, av[0], head);
 	}
 	free(text);
 	free_list(head);
-    head = NULL;
+	head = NULL;
 	exit(0);
 }

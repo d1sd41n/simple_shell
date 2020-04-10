@@ -5,6 +5,7 @@
  * @s: pointer
  * Return: none
  */
+
 int _strlen(char *s)
 {
 	int i;

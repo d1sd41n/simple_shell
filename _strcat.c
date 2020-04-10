@@ -1,8 +1,9 @@
 #include "holberton.h"
 /**
  * *_strcatgoodizer - concatenates two strings
- * @dest: pointer
- * @src: pointer
+ * @str1: String of path.
+ * @str2: String of command.
+ * @res: Resulto of concatenate path and command.
  * Return: concatenated strings
  */
 char *_strcatgoodizer(char *str1, char *str2, char *res)

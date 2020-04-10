@@ -1,5 +1,13 @@
 #include "holberton.h"
 
+/**
+ * _strncmp - Function compare 2 string.
+ * @s1: String 1.
+ * @s2: String 2.
+ * @bytes: length string.
+ * Return: Always dest.
+ */
+
 int _strncmp(char *s1, char *s2, size_t bytes)
 {
 	unsigned int i;

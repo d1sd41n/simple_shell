@@ -13,6 +13,16 @@
 
 extern char **environ;
 
+/**
+ * struct list_s - singly linked list
+ * @str: string path.
+ * @len: length of path.
+ * @next: next node path.
+ *
+ * Description: singly linked list node structure
+ * for simple shell project.
+ */
+
 typedef struct list_s
 {
 	char *str;
