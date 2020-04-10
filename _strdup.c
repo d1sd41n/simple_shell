@@ -18,6 +18,11 @@ char *_strdup(char *str)
 	i++;
 	copy = malloc(sizeof(char) * i);
 	if (copy == NULL)
+	{
+		free(copy);
+		return (NULL);
+	}
+	if (copy == NULL)
 		return (NULL);
 	for (m = 0; m < i; m++)
 		copy[m] = str[m];

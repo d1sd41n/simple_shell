@@ -19,6 +19,11 @@ char *_getenv(char *varenv)
 			size++;
 		size++;
 		aux = malloc(size);
+		if (aux == NULL)
+		{
+			free(aux);
+			return (NULL);
+		}
 		size--;
 		_memcpy(aux, environ[i], size);
 		if (_strncmp(varenv, aux, size) == 0)

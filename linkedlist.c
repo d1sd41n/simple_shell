@@ -30,7 +30,7 @@ size_t print_list(const list_t *h)
  * Return: return memory direction node.
  */
 
-list_t *add_node_end(list_t **head, const char *str)
+list_t *add_node_end(list_t **head, char *str)
 {
 	list_t *temp = *head;
 	list_t *node;
@@ -38,9 +38,12 @@ list_t *add_node_end(list_t **head, const char *str)
 
 	node = malloc(sizeof(list_t));
 	if (node == NULL)
+	{
+		free(node);
 		return (NULL);
+	}
 	node->next = NULL;
-	node->str = strdup(str);
+	node->str = _strdup(str);
 	for (i = 0; str[i] != '\0'; i++)
 		;
 	node->len = i;

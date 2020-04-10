@@ -27,7 +27,9 @@ int _strlen(char *s);
 char *_getenv(char *varenv);
 size_t print_list(const list_t *h);
 char *_strdup(char *str);
-list_t *add_node_end(list_t **head, const char *str);
+list_t *add_node_end(list_t **head, char *str);
 void free_list(list_t *head);
+char *_strcatgoodizer(char *dest, char *src, char *res);
+list_t *cPath(list_t *head);
 
 #endif
