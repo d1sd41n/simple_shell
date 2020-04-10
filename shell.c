@@ -78,6 +78,10 @@ int main(int ac __attribute__((unused)), char **av)
 		line[cont] = NULL;
 		if (!line[0])
 			continue;
+
+		if (_strcmp(line[0], "exit") == 0)
+			break;
+
 		runc(line, text, av[0], head);
 	}
 	free(text);

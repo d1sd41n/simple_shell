@@ -41,5 +41,6 @@ list_t *add_node_end(list_t **head, char *str);
 void free_list(list_t *head);
 char *_strcatgoodizer(char *dest, char *src, char *res);
 list_t *cPath(list_t *head);
+int _strcmp(char *s1, char *s2);
 
 #endif
