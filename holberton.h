@@ -42,5 +42,6 @@ void free_list(list_t *head);
 char *_strcatgoodizer(char *dest, char *src, char *res);
 list_t *cPath(list_t *head);
 int _strcmp(char *s1, char *s2);
+void _printenv(void);
 
 #endif
