@@ -1,59 +1,68 @@
-.TH SIMPLE-SHELL 3 "12 Abr 2020" "V 1.0" "Simple-Shell man page"
+.TH man 1 "12 Abr 2020" "V 1.0" "hsh man page" "Holberton School"
 
 .SH NAME
 
-.B SIMPLE-SHELL
-- its a mini proyect of a shell with basic commands.
+hsh (Holberton Simple Shell)
 
 .SH SYNOPSIS
 
-include libraries
+Run hsh
 .br
-files of project
-.br
-form of activate and work properly
+.B ./hsh
 
 .SH DESCRIPTION
 
-Write the use and cut the line and continue
+Hsh is a basic command interpreter. Reads commands from standard
+input and execute them. Hsh has the basic features of linux sh.
+It can be use compiled and used in the most distributions and versions of linux.
+
+.SH USAGE
+.SS INTERACTIVE MODE
+1- Run the executable file:
+.B ./hsh
 .br
-in the next line
+2- Enter the command to run at the command prompt with its arguments
 .br
-eexample for this topic.
+
+Format:
+.br
+.I <command>
+.I <argument_1>
+.I <argument_2>
+.I <argument_3>
+.B ...
+.SS NON-INTERACTIVE MODE
+You can invoke hsh and execute commands through a pipe
+.br
+
+Format:
+.br
+.I <command>
+|
+.B ./hsh
+
+.SH BUILTIN COMMANDS
+In addition to running system programs, hsh has the following own commands
+
+.B env
+= prints environment variables and their content
+.br
+.B exit
+= let hsh end
 
 
-.SH Return Value
+.SH EXAMPLE
 
-Execution of commands in the simple-shell.
-
-.SH OPTIONS
-.B Simple_Shell
-have handle the following commands to use:
-
+Example of how to execute a command in interactive mode, in this case To run
 .B ls
-= ls to list files and directories, admit arguments
+and some arguments:
 .br
-.B pwd
-= Show the path the current ubication.
+.B ls -la
 .br
-.B ifconfig
-= print information data table.
-.br
-.B sudo
-= execute command sudo and arguments
 
-.SH EXAMPLES
-
-in the example:
-
-.B To run ls:
-
+Example of how to execute a command in non-interactive mode:
 .br
-	in prompt write ls and arguments.
-.br
-	example:;
-.br
-	$> ls -la
+.B echo "ls -la" | ./hsh
 
 .SH SEE ALSO
 .I man sh
@@ -61,5 +70,5 @@ in the example:
 .SH BUGS
 No known bugs.
 
-.SH AUTHOR
+.SH AUTHORS
 Daniel Perez, Roger Rendon
