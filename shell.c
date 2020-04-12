@@ -1,14 +1,34 @@
 #include "holberton.h"
 
 /**
+ * execute - Function for run commands.
+ * @p: entri command line.
+ * @line: char pointer.
+ * @text: pointer name command.
+ * @pname: pointer head.
+ * Return: final .status
+ */
+void execute(char *p, char *line[], char *text, char *pname)
+{
+	if (execve(p, line, NULL) == -1)
+	{
+		perror(pname);
+		free(text);
+		exit(1);
+	}
+}
+
+
+/**
  * runc - Function for run commands.
  * @line: entri command line.
  * @text: char pointer.
  * @pname: pointer name command.
  * @head: pointer head.
+ * @i: pointer head.
  * Return: final .status
  */
-void runc(char *line[], char *text, char *pname, list_t *head)
+void runc(char *line[], char *text, char *pname, list_t *head, unsigned int i)
 {
 	pid_t PID;
 	int status, m;
@@ -24,23 +44,23 @@ void runc(char *line[], char *text, char *pname, list_t *head)
 			{
 				p = _strcatgoodizer(head->str, line[0], res);
 				if (stat(p, &st) == 0)
-				{
-					if (execve(p, line, NULL) == -1)
-					{
-						perror(pname);
-						free(text);
-						exit(1);
-					}
-				}
+					execute(p, line, text, pname);
 				head = head->next;
 			}
+			if (i < 4294967295)
+			{
+				write(STDOUT_FILENO, pname, _strlen(pname));
+				write(STDOUT_FILENO, ": ", _strlen(": "));
+				print_int(&i);
+				write(STDOUT_FILENO, ": ", _strlen(": "));
+				write(STDOUT_FILENO, line[0], _strlen(line[0]));
+				write(STDOUT_FILENO, ": ", _strlen(": "));
+				write(STDOUT_FILENO, "not found", _strlen("not found"));
+				_putchar('\n');
+				exit(1);
+			}
 		}
-		if (execve(line[0], line, NULL) == -1)
-		{
-			perror(pname);
-			free(text);
-			exit(1);
-		}
+		execute(line[0], line, text, pname);
 	}
 	else if (PID < 0)
 		perror("fork error");
@@ -62,11 +82,14 @@ int main(int ac __attribute__((unused)), char **av)
 	char *line[1024], *token, *text = NULL;
 	size_t cont, narg;
 	list_t *head = NULL;
+	unsigned int i = 0;
 
 	head = cPath(head);
 	while (1)
 	{
-		write(STDOUT_FILENO, "$> ", _strlen("$> "));
+		i++;
+		if (isatty(fileno(stdin)))
+			write(STDOUT_FILENO, "$> ", _strlen("$> "));
 		if (getline(&text, &narg, stdin) == -1)
 			break;
 		token = strtok(text, " \t\n\r");
@@ -81,9 +104,12 @@ int main(int ac __attribute__((unused)), char **av)
 		if (_strcmp(line[0], "exit") == 0)
 			break;
 		if (_strcmp(line[0], "env") == 0)
+		{
 			_printenv();
+			continue;
+		}
 
-		runc(line, text, av[0], head);
+		runc(line, text, av[0], head, i);
 	}
 	free(text);
 	free_list(head);
