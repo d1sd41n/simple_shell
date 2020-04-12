@@ -43,5 +43,7 @@ char *_strcatgoodizer(char *dest, char *src, char *res);
 list_t *cPath(list_t *head);
 int _strcmp(char *s1, char *s2);
 void _printenv(void);
+char *int2str(unsigned int i, char Array[]);
+void print_int(unsigned int *i);
 
 #endif
