@@ -1,0 +1,65 @@
+.TH SIMPLE-SHELL 3 "12 Abr 2020" "V 1.0" "Simple-Shell man page"
+
+.SH NAME
+
+.B SIMPLE-SHELL
+- its a mini proyect of a shell with basic commands.
+
+.SH SYNOPSIS
+
+include libraries
+.br
+files of project
+.br
+form of activate and work properly
+
+.SH DESCRIPTION
+
+Write the use and cut the line and continue
+.br
+in the next line
+.br
+eexample for this topic.
+
+
+.SH Return Value
+
+Execution of commands in the simple-shell.
+
+.SH OPTIONS
+.B Simple_Shell
+have handle the following commands to use:
+
+.B ls
+= ls to list files and directories, admit arguments
+.br
+.B pwd
+= Show the path the current ubication.
+.br
+.B ifconfig
+= print information data table.
+.br
+.B sudo
+= execute command sudo and arguments
+
+.SH EXAMPLES
+
+in the example:
+
+.B To run ls:
+
+.br
+	in prompt write ls and arguments.
+.br
+	example:;
+.br
+	$> ls -la
+
+.SH SEE ALSO
+.I man sh
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHOR
+Daniel Perez, Roger Rendon
