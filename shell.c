@@ -17,8 +17,6 @@ void execute(char *p, char *line[], char *text, char *pname)
 		exit(1);
 	}
 }
-
-
 /**
  * runc - Function for run commands.
  * @line: entri command line.
@@ -28,10 +26,10 @@ void execute(char *p, char *line[], char *text, char *pname)
  * @i: pointer head.
  * Return: final .status
  */
-void runc(char *line[], char *text, char *pname, list_t *head, unsigned int i)
+int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i)
 {
 	pid_t PID;
-	int status, m;
+	int status, m, exit_status = 0;
 	struct stat st;
 	char *p, *res = NULL;
 
@@ -44,31 +42,28 @@ void runc(char *line[], char *text, char *pname, list_t *head, unsigned int i)
 			{
 				p = _strcatgoodizer(head->str, line[0], res);
 				if (stat(p, &st) == 0)
-					execute(p, line, text, pname);
+					execute(p, line, text, pm);
 				head = head->next;
 			}
 			if (i < 4294967295)
 			{
-				write(STDOUT_FILENO, pname, _strlen(pname));
-				write(STDOUT_FILENO, ": ", _strlen(": "));
-				print_int(&i);
-				write(STDOUT_FILENO, ": ", _strlen(": "));
-				write(STDOUT_FILENO, line[0], _strlen(line[0]));
-				write(STDOUT_FILENO, ": ", _strlen(": "));
-				write(STDOUT_FILENO, "not found", _strlen("not found"));
-				_putchar('\n');
-				exit(1);
+				print_error(pm, line[0], i);
+				exit(127);
 			}
 		}
-		execute(line[0], line, text, pname);
+		execute(line[0], line, text, pm);
 	}
 	else if (PID < 0)
+	{
 		perror("fork error");
+	}
 	else
 	{
-		if (wait(&status) == -1)
-			perror("wait error");
+		wait(&status);
+		if (WIFEXITED(status))
+        	exit_status = WEXITSTATUS(status);
 	}
+	return (exit_status);
 }
 
 /**
@@ -83,6 +78,7 @@ int main(int ac __attribute__((unused)), char **av)
 	size_t cont, narg;
 	list_t *head = NULL;
 	unsigned int i = 0;
+	int status = 0;
 
 	head = cPath(head);
 	while (1)
@@ -109,10 +105,10 @@ int main(int ac __attribute__((unused)), char **av)
 			continue;
 		}
 
-		runc(line, text, av[0], head, i);
+		status = runc(line, text, av[0], head, i);
 	}
 	free(text);
 	free_list(head);
 	head = NULL;
-	exit(0);
+	exit(status);
 }

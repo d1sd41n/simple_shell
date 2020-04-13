@@ -36,5 +36,5 @@ void print_int(unsigned int *i)
 	char st[11], *p;
 
 	p = int2str(*i, st);
-	write(STDOUT_FILENO, p, _strlen(p));
+	write(STDERR_FILENO, p, _strlen(p));
 }

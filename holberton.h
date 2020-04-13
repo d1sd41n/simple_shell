@@ -45,5 +45,7 @@ int _strcmp(char *s1, char *s2);
 void _printenv(void);
 char *int2str(unsigned int i, char Array[]);
 void print_int(unsigned int *i);
+void print_error(char *pname, char *command, unsigned int i);
+int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i);
 
 #endif
