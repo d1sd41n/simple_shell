@@ -1,5 +1,13 @@
 #include "holberton.h"
 
+/**
+ * print_error - print error message.
+ * @pname: program name.
+ * @command: command first part.
+ * @i: conter.
+ * Return: void.
+ */
+
 void print_error(char *pname, char *command, unsigned int i)
 {
 	write(STDERR_FILENO, pname, _strlen(pname));
@@ -10,5 +18,4 @@ void print_error(char *pname, char *command, unsigned int i)
 	write(STDERR_FILENO, ": ", _strlen(": "));
 	write(STDERR_FILENO, "not found", _strlen("not found"));
 	write(STDERR_FILENO, "\n", _strlen("\n"));
-
 }

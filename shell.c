@@ -21,7 +21,7 @@ void execute(char *p, char *line[], char *text, char *pname)
  * runc - Function for run commands.
  * @line: entri command line.
  * @text: char pointer.
- * @pname: pointer name command.
+ * @pm: pointer name command.
  * @head: pointer head.
  * @i: pointer head.
  * Return: final .status
@@ -61,7 +61,7 @@ int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i)
 	{
 		wait(&status);
 		if (WIFEXITED(status))
-        	exit_status = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 	}
 	return (exit_status);
 }
