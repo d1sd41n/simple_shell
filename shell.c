@@ -84,8 +84,7 @@ int main(int ac __attribute__((unused)), char **av)
 	while (1)
 	{
 		i++;
-		if (isatty(fileno(stdin)))
-			write(STDOUT_FILENO, "$> ", _strlen("$> "));
+		write(STDOUT_FILENO, "$> ", _strlen("$> "));
 		if (getline(&text, &narg, stdin) == -1)
 			break;
 		token = strtok(text, " \t\n\r");
