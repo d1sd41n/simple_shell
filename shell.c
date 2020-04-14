@@ -10,7 +10,7 @@
  */
 void execute(char *p, char *line[], char *text, char *pname)
 {
-	if (execve(p, line, NULL) == -1)
+	if (execve(p, line, environ) == -1)
 	{
 		perror(pname);
 		free(text);
@@ -84,7 +84,8 @@ int main(int ac __attribute__((unused)), char **av)
 	while (1)
 	{
 		i++;
-		write(STDOUT_FILENO, "$> ", _strlen("$> "));
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$> ", _strlen("$> "));
 		if (getline(&text, &narg, stdin) == -1)
 			break;
 		token = strtok(text, " \t\n\r");
