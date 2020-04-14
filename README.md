@@ -9,6 +9,7 @@ This project was written in C in order to emulate the linux sh shell and study h
 
 ## Installing
 1- Clone this Repo
+
 2- Compile: 
 >  gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 
