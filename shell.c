@@ -14,11 +14,15 @@ void execute(char *p, char *line[], char *text, char *pname, unsigned int i)
 	if (execve(p, line, environ) == -1)
 	{
 		if (errno == 13)
+		{
 			print_error_p(pname, line[0], i);
+			free(text);
+			exit(126);
+		}
 		else
 			perror(pname);
 		free(text);
-		exit(126);
+		exit(1);
 	}
 }
 /**
