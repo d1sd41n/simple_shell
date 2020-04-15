@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <errno.h>
 
 extern char **environ;
 
@@ -47,5 +48,6 @@ char *int2str(unsigned int i, char Array[]);
 void print_int(unsigned int *i);
 void print_error(char *pname, char *command, unsigned int i);
 int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i);
+void print_error_p(char *pname, char *command, unsigned int i);
 
 #endif

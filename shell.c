@@ -6,15 +6,19 @@
  * @line: char pointer.
  * @text: pointer name command.
  * @pname: pointer head.
+ * @i: counter
  * Return: final .status
  */
-void execute(char *p, char *line[], char *text, char *pname)
+void execute(char *p, char *line[], char *text, char *pname, unsigned int i)
 {
 	if (execve(p, line, environ) == -1)
 	{
-		perror(pname);
+		if (errno == 13)
+			print_error_p(pname, line[0], i);
+		else
+			perror(pname);
 		free(text);
-		exit(1);
+		exit(126);
 	}
 }
 /**
@@ -23,7 +27,7 @@ void execute(char *p, char *line[], char *text, char *pname)
  * @text: char pointer.
  * @pm: pointer name command.
  * @head: pointer head.
- * @i: pointer head.
+ * @i: counter.
  * Return: final .status
  */
 int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i)
@@ -42,7 +46,7 @@ int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i)
 			{
 				p = _strcatgoodizer(head->str, line[0], res);
 				if (stat(p, &st) == 0)
-					execute(p, line, text, pm);
+					execute(p, line, text, pm, i);
 				head = head->next;
 			}
 			if (i < 4294967295)
@@ -51,7 +55,7 @@ int runc(char *line[], char *text, char *pm, list_t *head, unsigned int i)
 				exit(127);
 			}
 		}
-		execute(line[0], line, text, pm);
+		execute(line[0], line, text, pm, i);
 	}
 	else if (PID < 0)
 	{
@@ -95,7 +99,7 @@ int main(int ac __attribute__((unused)), char **av)
 			token = strtok(NULL, " \t\n\r");
 		}
 		line[cont] = NULL;
-		if (!line[0])
+		if (!line[0] || _strcmp(line[0], ".") == 0)
 			continue;
 		if (_strcmp(line[0], "exit") == 0)
 			break;
@@ -104,7 +108,6 @@ int main(int ac __attribute__((unused)), char **av)
 			_printenv();
 			continue;
 		}
-
 		status = runc(line, text, av[0], head, i);
 	}
 	free(text);
