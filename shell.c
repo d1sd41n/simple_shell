@@ -99,11 +99,6 @@ int main(int ac __attribute__((unused)), char **av)
 			continue;
 		if (_strcmp(line[0], "exit") == 0)
 			break;
-		if (_strcmp(line[0], "env") == 0)
-		{
-			_printenv();
-			continue;
-		}
 
 		status = runc(line, text, av[0], head, i);
 	}
